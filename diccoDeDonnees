@@ -25,6 +25,6 @@ dateRevisionPDF // savoir si PDF révisé ou non et si oui quand
 
 
 // Réseau
-numPdf //clé étrangère vers BD locales
+numPdf //clé étrangère vers BD locales si possibles 
 pdf
 partageDico
