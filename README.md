@@ -1,2 +1,2 @@
 # ApprendreLeBasque
-Application pour iphone en swift pour apprendre le basque
+Application pour iPhone en Swift pour apprendre le basque
