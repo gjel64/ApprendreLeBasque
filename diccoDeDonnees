@@ -1,22 +1,30 @@
+// Infos utilisateur (élèves et profs)
 numUser
 nomUser
-pseudoUser
-roleUser
+prenomUser
 numeroTelUser
 mailUser
+pseudoUser
+roleUser // Prof ou élève (bool)
 
+// Cartes spécifiques à chaque utilisateur
 numCarte
-rectoVerso
-dateDerniereRevision
-ecartDerniereRevisions
-etatCarte
-nbRevisions
+rectoVerso // Mot
+categorieCarte
+explicationCarte // Bulle d'aide
+// Stats pour suivi personnel
+dateRevisionCarte // Date de la dernière révision
+ecartDerniereRevision // Apparaît dans les révisions si les dernières révisions datent un peu trop
+etatCarte // Différents états : inédites (vient d'être ajouté), à repasser (si faute), réapprentissage, récentes (mois actuel), matures (bien intégréees)
+nbRevision // Nombre de fois où on a révisé la carte (pour le suivi)
 
-pdfRevisees
-dateRevisionsPdf
+// Cours PDF
+numPDF
+pdfRevise
+dateRevisionPDF // savoir si PDF révisé ou non et si oui quand
 
 
 // Réseau
 numPdf //clé étrangère vers BD locales
 pdf
-partageDicco
+partageDico
