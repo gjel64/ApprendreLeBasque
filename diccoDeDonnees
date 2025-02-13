@@ -22,12 +22,12 @@ nbRevision // Nombre de fois où on a révisé la carte
 
 
 // Cours PDF
-numPDFfait en requetes vers le réseau
-pdfRevise
-dateRevisionPDF // savoir si PDF révisé ou non et si oui quand
+numPDF // Fait en requêtes vers le réseau
+etatPDF
+dateRevisionPDF // Savoir si PDF révisé ou non et si oui quand
 
 
 // Réseau
-numPDF //clé étrangère vers BD locales si possibles fait en requetes vers le réseau
+numPDF // Fait en requetes vers le réseau
 pdf
 partageDico
