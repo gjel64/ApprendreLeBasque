@@ -2,7 +2,7 @@ numUser
 nomUser
 pseudoUser
 roleUser
-numéroTelUser
+numeroTelUser
 mailUser
 
 numCarte
@@ -12,11 +12,11 @@ ecartDerniereRevisions
 etatCarte
 nbRevisions
 
-pdfRévisées
-dateRévisionsPdf
+pdfRevisees
+dateRevisionsPdf
 
 
 // Réseau
-numPdf clé étrangère vers BD locales
+numPdf //clé étrangère vers BD locales
 pdf
 partageDicco
