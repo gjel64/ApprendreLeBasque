@@ -1,0 +1,22 @@
+numUser
+nomUser
+pseudoUser
+roleUser
+numeroTelUser
+mailUser
+
+numCarte
+rectoVerso
+dateDerniereRevision
+ecartDerniereRevisions
+etatCarte
+nbRevisions
+
+pdfRevisees
+dateRevisionsPdf
+
+
+// Réseau
+numPdf //clé étrangère vers BD locales
+pdf
+partageDicco
