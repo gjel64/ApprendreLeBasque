@@ -4,27 +4,30 @@ nomUser
 prenomUser
 numeroTelUser
 mailUser
-pseudoUser
+pseudoUser // Utile lors du partage des dictionnaires entre utilisateurs
 roleUser // Prof ou élève (bool)
+
 
 // Cartes spécifiques à chaque utilisateur
 numCarte
-rectoVerso // Mot
+rectoVerso // Contenu
 categorieCarte
 explicationCarte // Bulle d'aide
+
 // Stats pour suivi personnel
 dateRevisionCarte // Date de la dernière révision
 ecartDerniereRevision // Apparaît dans les révisions si les dernières révisions datent un peu trop
 etatCarte // Différents états : inédites (vient d'être ajouté), à repasser (si faute), réapprentissage, récentes (mois actuel), matures (bien intégréees)
-nbRevision // Nombre de fois où on a révisé la carte (pour le suivi)
+nbRevision // Nombre de fois où on a révisé la carte
+
 
 // Cours PDF
-numPDF
+numPDFfait en requetes vers le réseau
 pdfRevise
 dateRevisionPDF // savoir si PDF révisé ou non et si oui quand
 
 
 // Réseau
-numPdf //clé étrangère vers BD locales si possibles 
+numPDF //clé étrangère vers BD locales si possibles fait en requetes vers le réseau
 pdf
 partageDico
