@@ -9,9 +9,9 @@ Clé primaire : numDico
 
 Carte (numCarte, recto, verso, aideCarte, etatCarte, nbRevision, dateDerniereRevision, ecartDerniereRevision, #numDico)
 Clé primaire : numCarte
-Clé étrangère : numDico en référence à Dictionnaire (numDico)
+Clé étrangère : numDico en réf à Dictionnaire (numDico)
 
 Travailler (numPDF, numUser, dateRevisionPDF, etatPDF)
 Clé primaire : numPDF, numUser
-clé étrangère : numPDF en réf à Pdf(numPDF)
+Clé étrangère : numPDF en réf à Pdf(numPDF)
                 numUser en réf à User(numUser)
