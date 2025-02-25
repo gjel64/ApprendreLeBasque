@@ -13,3 +13,5 @@ Clé étrangère : numDico en référence à Dictionnaire (numDico)
 
 Travailler (numPDF, numUser, dateRevisionPDF, etatPDF)
 Clé primaire : numPDF, numUser
+clé étrangère : numPDF en réf à Pdf(numPDF)
+                numUser en réf à User(numUser)
