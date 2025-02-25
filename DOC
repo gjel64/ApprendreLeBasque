@@ -1,28 +1,51 @@
-Contextualisation
+1. Qui ? (Cible)
 
-1. Contexte linguistique et culturel
-Le basque (Euskara) est une langue isolée, sans lien direct avec les autres langues indo-européennes. Il est parlé principalement au Pays Basque, une région située entre la France et l’Espagne. Malgré une riche histoire et une culture vibrante, la langue a longtemps été menacée par la domination des langues voisines (espagnol et français). Aujourd’hui, grâce à des efforts de revitalisation, le basque connaît un regain d’intérêt, notamment dans l’éducation et les médias.
+L’application s’adresse à plusieurs types d’utilisateurs :
+• Débutants curieux souhaitant découvrir le basque.
+• Locuteurs passifs (ayant des racines basques mais ne parlant pas la langue).
+• Étudiants, expatriés et habitants du Pays Basque voulant apprendre pour s’intégrer.
+• Touristes et voyageurs ayant besoin de bases pour leur séjour.
+• Enfants et jeunes (via une approche ludique et interactive).
 
-2. Public cible
-Ton application pourrait viser plusieurs types d’utilisateurs :
-• Débutants curieux souhaitant découvrir une langue unique.
-• Étudiants et expatriés vivant au Pays Basque qui veulent s’intégrer.
-• Locuteurs passifs (ayant des racines basques mais ne parlant pas la langue) souhaitant la réapprendre.
-• Touristes et voyageurs désirant apprendre des bases pour leur séjour.
-• Enfants et jeunes (via une approche ludique).
+2. Quoi ? (Résultat final)
 
-3. Environnement numérique et tendances
-L’apprentissage des langues via mobile connaît une forte croissance avec des applications comme Duolingo, Babbel ou Memrise. Ton application doit donc proposer :
-• Une pédagogie interactive (jeux, quiz).
-• Un contenu adapté aux différents niveaux.
-• Une immersion culturelle (expressions locales, contexte historique).
-• Une accessibilité mobile-first, car les utilisateurs privilégient le smartphone pour l’apprentissage.
+L’application offrira :
+• Un programme d’apprentissage structuré (vocabulaire, grammaire, phrases courantes).
+• Des exercices interactifs (quiz, reconnaissance vocale, mini-jeux).
+• Une immersion culturelle (expressions locales, traditions basques).
+• Un suivi personnalisé avec progression et récompenses.
 
-4. Objectifs pédagogiques
-L’application doit permettre aux utilisateurs de :
-• Apprendre le vocabulaire et la grammaire de base.
-• Comprendre et produire des phrases simples.
-• Découvrir la culture basque à travers la langue.
+3. Où ? (Ville, région)
 
+Principalement destinée au Pays Basque (français et espagnol), mais aussi aux Basques expatriés et aux passionnés de langues du monde entier.
 
+4. Quand ? (Date limite)
+
+La date limite dépend du niveau de développement :
+• Prototype : 0 à 1 mois.
+• Version bêta : 1 à 2 mois.
+• Lancement officiel : environ 12 mois après le début du projet.
+
+5. Comment ? (Ressources nécessaires)
+• Développement : Une équipe technique (développeurs, UX/UI designers).
+• Contenu pédagogique : Linguistes, professeurs de basque, traducteurs.
+• Base audio/vidéo : Enregistrements de locuteurs natifs.
+• Marketing et communication : Réseaux sociaux, partenariats avec des écoles basques.
+
+6. Combien ? (Budget, qualité visée)
+• Budget estimé : Entre 0 et 0€, selon l’ampleur du projet.
+• Modèle économique : Gratuit avec options premium (abonnement, achats in-app) ou financé par des subventions culturelles.
+• Niveau de qualité : Une application fluide, intuitive, engageante et accessible sur iOS et Android.
+
+7. Pourquoi ? (Cause, problématique à résoudre)
+• Le basque est une langue en danger malgré les efforts de revitalisation.
+• Il y a un manque de ressources modernes et accessibles pour apprendre cette langue.
+• Peu d’applications dédiées au basque existent actuellement.
+• La transmission intergénérationnelle est en baisse, et l’application peut aider à renforcer l’apprentissage.
+
+8. Pour ? (Finalité, impact recherché)
+• Préserver et promouvoir la langue basque grâce aux nouvelles technologies.
+• Faciliter l’apprentissage pour un large public (expatriés, étudiants, curieux, enfants).
+• Encourager l’immersion culturelle en reliant la langue aux traditions basques.
+• Créer une communauté d’apprenants et de locuteurs.
 
