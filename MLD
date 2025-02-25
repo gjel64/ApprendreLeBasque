@@ -5,6 +5,7 @@ Pdf (numPDF, pdf)
 Clé primaire : numPDF
 
 Dictionnaire (numDico, nomDico)
+Clé primaire : numDico
 
 Carte (numCarte, recto, verso, aideCarte, etatCarte, nbRevision, dateDerniereRevision, ecartDerniereRevision, #numDico)
 Clé primaire : numCarte
