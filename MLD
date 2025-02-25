@@ -1,18 +1,14 @@
 User (numUser, nomUser, prenomUser, numeroTelUser, mailUser, pseudoUser, roleUser)
 Clé primaire : numUser
 
-Carte (numCarte, rectoVerso, categorieCarte, explicationCarte)
+Pdf (numPDF, pdf)
+Clé primaire : numPDF
+
+Dictionnaire (numDico, nomDico)
+
+Carte (numCarte, recto, verso, aideCarte, etatCarte, nbRevision, dateDerniereRevision, ecartDerniereRevision, #numDico)
 Clé primaire : numCarte
+Clé étrangère : numDico en référence à Dictionnaire (numDico)
 
-// Stats pour suivi personnel
-dateRevisionCarte // Date de la dernière révision
-ecartDerniereRevision // Apparaît dans les révisions si les dernières révisions datent un peu trop
-etatCarte // Différents états : inédites (vient d'être ajouté), à repasser (si faute), réapprentissage, récentes (mois actuel), matures (bien intégréees)
-nbRevision // Nombre de fois où on a révisé la carte
-
-
-Pdf (numPDF, etatPDF, dateRevisionPDF)
-
-Dico numPDF
-pdf
-partageDico
+Travailler (numPDF, numUser, dateRevisionPDF, etatPDF)
+Clé primaire : numPDF, numUser
