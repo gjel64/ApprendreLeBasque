@@ -1,18 +1,8 @@
-// Infos utilisateur (élèves et profs)
-numUser
-nomUser
-prenomUser
-numeroTelUser
-mailUser
-pseudoUser // Utile lors du partage des dictionnaires entre utilisateurs
-roleUser // Prof ou élève (bool)
+User (numUser, nomUser, prenomUser, numeroTelUser, mailUser, pseudoUser, roleUser)
+Clé primaire : numUser
 
-
-// Cartes spécifiques à chaque utilisateur
-numCarte
-rectoVerso // Contenu
-categorieCarte
-explicationCarte // Bulle d'aide
+Carte (numCarte, rectoVerso, categorieCarte, explicationCarte)
+Clé primaire : numCarte
 
 // Stats pour suivi personnel
 dateRevisionCarte // Date de la dernière révision
@@ -21,13 +11,8 @@ etatCarte // Différents états : inédites (vient d'être ajouté), à repasser
 nbRevision // Nombre de fois où on a révisé la carte
 
 
-// Cours PDF
-numPDF // Fait en requêtes vers le réseau
-etatPDF
-dateRevisionPDF // Savoir si PDF révisé ou non et si oui quand
+Pdf (numPDF, etatPDF, dateRevisionPDF)
 
-
-// Réseau
-numPDF // Fait en requetes vers le réseau
+Dico numPDF
 pdf
 partageDico
