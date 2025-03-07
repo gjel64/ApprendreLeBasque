@@ -1,0 +1,42 @@
+CREATE TABLE User (
+    numUser INT PRIMARY KEY,
+    nomUser VARCHAR(255),
+    prenomUser VARCHAR(255),
+    numeroTelUser VARCHAR(20),
+    mailUser VARCHAR(255),
+    pseudoUser VARCHAR(255),
+    roleUser VARCHAR(50)
+);
+
+CREATE TABLE Pdf (
+    numPDF INT PRIMARY KEY,
+    pdf BLOB
+);
+
+CREATE TABLE Dictionnaire (
+    numDico INT PRIMARY KEY,
+    nomDico VARCHAR(255)
+);
+
+CREATE TABLE Carte (
+    numCarte INT PRIMARY KEY,
+    recto TEXT,
+    verso TEXT,
+    aideCarte TEXT,
+    etatCarte VARCHAR(50),
+    nbRevision INT,
+    dateDerniereRevision DATE,
+    ecartDerniereRevision INT,
+    numDico INT,
+    FOREIGN KEY (numDico) REFERENCES Dictionnaire(numDico)
+);
+
+CREATE TABLE Travailler (
+    numPDF INT,
+    numUser INT,
+    dateRevisionPDF DATE,
+    etatPDF VARCHAR(50),
+    PRIMARY KEY (numPDF, numUser),
+    FOREIGN KEY (numPDF) REFERENCES Pdf(numPDF),
+    FOREIGN KEY (numUser) REFERENCES User(numUser)
+);
