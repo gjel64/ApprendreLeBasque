@@ -13,3 +13,5 @@ Proposition de fonctionnalité :
 - Possibilité d'avoir un affichage du dicco du genre comme les contacts, A - Z , truc propre bien visible
 - faire un truc qui regarde lors de la création si tu fais pas un doublon dans ton dicco
 - mettre en place une liste révisions (rouge, bleue, vert) dans le code qui s'actualise à chaque lancement de l'appli? --- et faire une sorte de roue qui permet de changer et de faire vert rouge bleu
+- si API traducteur -> on met un boutton ajouter qui ajoute directement au dicco
+- ca m'étonnerai quon le fasse mais une API IA qui quand on traduis un mot permet d'ajouter le mot au dicco avec une phrase expliquant le mot
