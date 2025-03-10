@@ -23,7 +23,7 @@ CREATE TABLE Carte (
     recto TEXT,
     verso TEXT,
     aideCarte TEXT,
-    etatCarte VARCHAR(50),
+    etatCarte INT,
     nbRevision INT,
     dateDerniereRevision DATE,
     ecartDerniereRevision INT,
