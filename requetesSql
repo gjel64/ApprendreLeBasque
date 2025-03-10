@@ -22,10 +22,10 @@ CREATE TABLE Carte (
     numCarte INT PRIMARY KEY,
     recto TEXT,
     verso TEXT,
-    aideCarte TEXT,
+    extraCarte TEXT,
     etatCarte INT,
     nbRevision INT,
-    dateDerniereRevision DATE,
+    dateProchaineRevision DATE,
     ecartDerniereRevision INT,
     numDico INT,
     FOREIGN KEY (numDico) REFERENCES Dictionnaire(numDico)
