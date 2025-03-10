@@ -7,7 +7,7 @@ Clé primaire : numPDF
 Dictionnaire (numDico, nomDico)
 Clé primaire : numDico
 
-Carte (numCarte, recto, verso, aideCarte, etatCarte, nbRevision, dateDerniereRevision, ecartDerniereRevision, #numDico)
+Carte (numCarte, recto, verso, extraCarte, etatCarte, nbRevision, dateProchaineRevision, ecartDerniereRevision, #numDico)
 Clé primaire : numCarte
 Clé étrangère : numDico en réf à Dictionnaire (numDico)
 
