@@ -15,4 +15,6 @@ Proposition de fonctionnalité :
 - mettre en place une liste révisions (rouge, bleue, vert) dans le code qui s'actualise à chaque lancement de l'appli? --- et faire une sorte de roue qui permet de changer et de faire vert rouge bleu
 - si API traducteur -> on met un boutton ajouter qui ajoute directement au dicco
 - ca m'étonnerai quon le fasse mais une API IA qui quand on traduis un mot permet d'ajouter le mot au dicco avec une phrase expliquant le mot
-- gèrer un système de limites de révisions
+- gèrer un système de limites de révisions -> créer un json de config qui ou on peut mettre ca 
+- faire une page ou on fait des articles sur des utilisations possibles de l'appli -> ex : pdt quon lit un livre, on regarde la traduction et on l'ajoute dans le dicco -> au lancement de la page article on met un         truc style Euskara ou Francais pour savoir dans qu'elle langue il veut l'appli
+- Un système ou chaque mot qu'il lit dans l'appli il peut appuyer longtemps deçu et si il comprends pas le mot ca le redirige sur le traducteur et il peut ajouter au dico
