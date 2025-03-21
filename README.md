@@ -18,3 +18,4 @@ Proposition de fonctionnalité :
 - gèrer un système de limites de révisions -> créer un json de config qui ou on peut mettre ca 
 - faire une page ou on fait des articles sur des utilisations possibles de l'appli -> ex : pdt quon lit un livre, on regarde la traduction et on l'ajoute dans le dicco -> au lancement de la page article on met un         truc style Euskara ou Francais pour savoir dans qu'elle langue il veut l'appli
 - Un système ou chaque mot qu'il lit dans l'appli il peut appuyer longtemps deçu et si il comprends pas le mot ca le redirige sur le traducteur et il peut ajouter au dico
+- quand on apprend dess cartes bleues et quon a 1 bon dès qu'on passe en mode rouge on les révise si faux espace de 2 / 3
