@@ -1,4 +1,4 @@
-//
+R//
 //  Traduction.swift
 //  EuskApp
 //
@@ -22,7 +22,7 @@ class Traduction: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    let apiKey = "AIzaSyCkCLyb9OGA07Nlq1lGbVCKvJ1-qQzzwLU"
+    let apiKey = "SECRET"
     
     func translate(text: String, targetLang: String, completion: @escaping (String?) -> Void) {
         let urlString = "https://translation.googleapis.com/language/translate/v2?key=\(apiKey)"
