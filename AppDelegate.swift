@@ -21,11 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tabTranslations.append([fr, eu])
         }
 
-        // Trie ce tableau par ordre alphabétique des mots français (colonne [0])
+        // Trie à bulles : ordre alphabétique des mots français (colonne [0]) en ignorant la casse
         for i in 0..<tabTranslations.count - 1 {
             for j in i+1..<tabTranslations.count {
                 // Si le mot à la position i vient après le mot à la position j dans l'alphabet
-                if tabTranslations[i][0] > tabTranslations[j][0] {
+                if tabTranslations[i][0].lowercased() > tabTranslations[j][0].lowercased() {
                     // Échanger les deux lignes pour les mettre dans le bon ordre
                     let temp = tabTranslations[i]
                     tabTranslations[i] = tabTranslations[j]
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return tabTranslations
     }
 
-    private static var translations: [String: String] = [:]
+    public static var translations: [String: String] = [:]
 
     public static func getTrans() -> [String: String] {
         return AppDelegate.translations
