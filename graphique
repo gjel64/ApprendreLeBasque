@@ -33,7 +33,7 @@ class GraphiqueVC: UIViewController {
         setupChart()
         setData()
     }
-    var lineChartView = Chart.BarChartView()
+    var lineChartView = Chart.BarChartView().   // Xcode ne reconnait pas BartChartView
     func setupChart() {
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(lineChartView)
