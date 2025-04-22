@@ -1,58 +1,110 @@
-NON TERMINÉ A MODIFIER AVEC SwiftUI
-CODE GRAPHIQUE
-
-
-
-
+CODE DU GRAPHIQUE 
+IL Y A UNE ERREUR D'IMPORT AVEC DGCHARTS
 
 //
-//  GraphiqueVC.swift
-//  AppV2
+//  Interface.swift
+//  AppV3
 //
-//  Created by etudiant on 09/04/2025.
+//  Created by etudiant on 22/04/2025.
 //
+import SwiftUI
+import DGCharts
 
-import UIKit
-import Charts
-class GraphiqueVC: UIViewController {
-    /*
-     liste des graphique a faire:
-     - nb révisions dans tant de jours
-     - calendrier des révisions réalisés
-     - nb cartes de chaque type (bleu-vert-rouge)
-     - jours travaillés avec nb cartes /jour avec moyenne de révisions / jour travailés
-     - facilité des cartes travaillés
-     - nb ajout en fonction des cartes
-     */
+// UIView personnalisée contenant le LineChartView
+
+class LineChartUIView: UIView {
+    var tousLesCartes: [Carte] = [] // Liste des cartes à afficher
     
-    var tousLesCartes : [Carte] = []
+    private let lineChartView = LineChartView()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tousLesCartes = AppDelegate.getTousLesCartes()
-        setupChart()
-        setData()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupChartView()
+        setChartData()
     }
-    var lineChartView = Chart.BarChartView().   // Xcode ne reconnait pas BartChartView
-    func setupChart() {
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupChartView()
+        setChartData()
+    }
+
+    private func setupChartView() {
+        addSubview(lineChartView)
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(lineChartView)
 
         NSLayoutConstraint.activate([
-            lineChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            lineChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            lineChartView.topAnchor.constraint(equalTo: view.topAnchor),
-            lineChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            lineChartView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lineChartView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            lineChartView.topAnchor.constraint(equalTo: topAnchor),
+            lineChartView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+
+        lineChartView.chartDescription.enabled = true
+        lineChartView.chartDescription.text = "Révisions de cartes"
+        lineChartView.rightAxis.enabled = false
+        lineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
     }
-    func setData() {
-        var i = 0
-        let entries: [Chart.ChartDataEntry] = tousLesCartes.enumerated().map { index, carte in
-                    return ChartDataEntry(x: Double(index), y: Double(carte.getEtatCarte()))
+
+    private func setChartData() {
+        var chartEntries: [ChartDataEntry] = []
+        
+        // Calculer les entrées du graphique pour chaque carte
+        for carte in tousLesCartes {
+            // Assurer que la date de révision existe
+            if !carte.dateProchaineRevision.isEmpty {
+                // Effectuer l'opération si la date n'est pas vide
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                if let prochaineRevisionDate = dateFormatter.date(from: carte.dateProchaineRevision) {
+                    let today = Date()
+                    let daysUntilRevision = Calendar.current.dateComponents([.day], from: today, to: prochaineRevisionDate).day ?? 0
+                    
+                    // Nombre de révisions effectuées basé sur le niveau de la carte
+                    let nombreDeRevisions = Double(carte.niveauCarte) // Utiliser le niveau de la carte comme nombre de révisions
+                    
+                    // Ajouter l'entrée du graphique : x = jours avant la révision, y = nombre de révisions
+                    let entry = ChartDataEntry(x: Double(daysUntilRevision), y: nombreDeRevisions)
+                    chartEntries.append(entry)
                 }
-        let dataSet = Chart.LineDataSet(entries: entries, label: "Évolution")
-        lineChartView.data = Chart.LineChartData(dataSet: dataSet)
+            }
+        }
+        
+        // Créer un dataset pour les données du graphique
+        let dataSet = LineChartDataSet(entries: chartEntries, label: "Révisions par jour")
+        dataSet.circleRadius = 4
+        dataSet.lineWidth = 2
+        dataSet.valueFont = .systemFont(ofSize: 10) // Optionnel: ajout d'une police pour les valeurs
+        
+        // Appliquer le dataset au graphique
+        let data = LineChartData(dataSet: dataSet)
+        lineChartView.data = data
     }
 }
-    
 
+
+
+// UIViewRepresentable pour intégrer à SwiftUI
+struct LineChartViewContainer: UIViewRepresentable {
+    func makeUIView(context: Context) -> LineChartUIView {
+        return LineChartUIView()
+    }
+
+    func updateUIView(_ uiView: LineChartUIView, context: Context) {
+        // Si tu veux mettre à jour les données dynamiquement, tu le fais ici.
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            Text("Graphique des révisions de cartes")
+                .font(.headline)
+                .padding()
+
+            LineChartViewContainer()
+                .frame(height: 300)
+                .padding(.horizontal)
+        }
+    }
+}
