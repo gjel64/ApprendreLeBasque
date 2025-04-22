@@ -1,0 +1,58 @@
+NON TERMINÉ A MODIFIER AVEC SwiftUI
+CODE GRAPHIQUE
+
+
+
+
+
+//
+//  GraphiqueVC.swift
+//  AppV2
+//
+//  Created by etudiant on 09/04/2025.
+//
+
+import UIKit
+import Charts
+class GraphiqueVC: UIViewController {
+    /*
+     liste des graphique a faire:
+     - nb révisions dans tant de jours
+     - calendrier des révisions réalisés
+     - nb cartes de chaque type (bleu-vert-rouge)
+     - jours travaillés avec nb cartes /jour avec moyenne de révisions / jour travailés
+     - facilité des cartes travaillés
+     - nb ajout en fonction des cartes
+     */
+    
+    var tousLesCartes : [Carte] = []
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tousLesCartes = AppDelegate.getTousLesCartes()
+        setupChart()
+        setData()
+    }
+    var lineChartView = Chart.BarChartView()
+    func setupChart() {
+        lineChartView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(lineChartView)
+
+        NSLayoutConstraint.activate([
+            lineChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            lineChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            lineChartView.topAnchor.constraint(equalTo: view.topAnchor),
+            lineChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    func setData() {
+        var i = 0
+        let entries: [Chart.ChartDataEntry] = tousLesCartes.enumerated().map { index, carte in
+                    return ChartDataEntry(x: Double(index), y: Double(carte.getEtatCarte()))
+                }
+        let dataSet = Chart.LineDataSet(entries: entries, label: "Évolution")
+        lineChartView.data = Chart.LineChartData(dataSet: dataSet)
+    }
+}
+    
+
