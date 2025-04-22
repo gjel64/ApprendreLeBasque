@@ -1,4 +1,4 @@
-R//
+//
 //  Traduction.swift
 //  EuskApp
 //
@@ -21,69 +21,13 @@ class Traduction: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
-    let apiKey = "SECRET"
-    
-    func translate(text: String, targetLang: String, completion: @escaping (String?) -> Void) {
-        let urlString = "https://translation.googleapis.com/language/translate/v2?key=\(apiKey)"
-        guard let url = URL(string: urlString) else {
-            print("❌ URL invalide")
-            completion(nil)
-            return
-        }
-        
-        let parameters: [String: Any] = ["q": text, "target": targetLang, "format": "text"]
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("❌ Erreur réseau : \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                print("✅ Code HTTP : \(httpResponse.statusCode)")
-            }
-            
-            guard let data = data else {
-                print("❌ Données vides")
-                completion(nil)
-                return
-            }
-            
-            // Afficher la réponse brute pour débogage
-            if let jsonStr = String(data: data, encoding: .utf8) {
-                print("📦 Réponse JSON brute : \(jsonStr)")
-            }
-            
-            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-               let dataObject = json["data"] as? [String: Any],
-               let translations = dataObject["translations"] as? [[String: Any]],
-               let translatedText = translations.first?["translatedText"] as? String {
-                
-                DispatchQueue.main.async {
-                    AppDelegate.addTrans(original: text, translation: translatedText)
-                    completion(translatedText)
-                }
-            } else {
-                print("❌ Erreur de parsing JSON")
-                completion(nil)
-            }
-        }
-        task.resume()
-    }
 
-    // Français vers basque
+    // MARK: Français vers basque
     @IBAction func translateFrIntoEu(_ sender: Any) {
         guard let text = tfFr.text, !text.isEmpty else {
             return
         }
-        translate(text: text, targetLang: "eu") { translation in
+        CloudAPI.translate(text: text, targetLang: "eu") { translation in
             if let translated = translation {
                 self.lblTransEu.text = translated
             } else {
@@ -100,12 +44,20 @@ class Traduction: UIViewController {
         AppDelegate.writeTrans()
     }
 
-    // Basque vers français
+    @IBAction func playEuAudio(_ sender: Any) {
+        guard let text = lblTransEu.text, !text.isEmpty else {
+            return
+        }
+        CloudAPI.audio(text: text, targetLang: "eu-ES")
+    }
+
+
+    // MARK: Basque vers français
     @IBAction func transEuIntoFr(_ sender: Any) {
         guard let text = tfEu.text, !text.isEmpty else {
             return
         }
-        translate(text: text, targetLang: "eu") { translation in
+        CloudAPI.translate(text: text, targetLang: "fr") { translation in
             if let translated = translation {
                 self.lblTransFr.text = translated
             } else {
@@ -120,5 +72,10 @@ class Traduction: UIViewController {
         AppDelegate.writeTrans()
     }
     
+    @IBAction func playFrAudio(_ sender: Any) {
+        guard let text = lblTransFr.text, !text.isEmpty else {
+            return
+        }
+        CloudAPI.audio(text: text, targetLang: "fr-FR")
+    }
 }
-
