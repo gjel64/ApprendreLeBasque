@@ -1,6 +1,3 @@
-CODE DU GRAPHIQUE 
-IL Y A UNE ERREUR D'IMPORT AVEC DGCHARTS
-
 //
 //  Interface.swift
 //  AppV3
@@ -13,8 +10,8 @@ import DGCharts
 // UIView personnalisée contenant le LineChartView
 
 class LineChartUIView: UIView {
-    var tousLesCartes: [Carte] = [] // Liste des cartes à afficher
-    
+    var tousLesCartes: [Carte] = AppDelegate.data // Liste des cartes à afficher
+
     private let lineChartView = LineChartView()
 
     override init(frame: CGRect) {
@@ -29,7 +26,7 @@ class LineChartUIView: UIView {
         setChartData()
     }
 
-    private func setupChartView() {
+    public func setupChartView() {
         addSubview(lineChartView)
         lineChartView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -43,10 +40,9 @@ class LineChartUIView: UIView {
         lineChartView.chartDescription.enabled = true
         lineChartView.chartDescription.text = "Révisions de cartes"
         lineChartView.rightAxis.enabled = false
-        lineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
     }
 
-    private func setChartData() {
+    public func setChartData() {
         var chartEntries: [ChartDataEntry] = []
         
         // Calculer les entrées du graphique pour chaque carte
