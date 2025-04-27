@@ -1,0 +1,138 @@
+//
+//  StatNbCarteAjoutParJour.swift
+//  EuskApp
+//
+
+// 4eme graphique Nombre de cartes ajouté au paquet par jour
+
+//  Created by etudiant on 27/04/2025.
+//
+import SwiftUI
+import DGCharts
+
+
+class StatNbCAjoutParJ: UIView {
+    var tousLesCartes: [Carte] = AppDelegate.lesPaquets[0].getCartes() // Liste des cartes à afficher
+
+    private let barChartView = BarChartView()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupChartView()
+        setChartData()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupChartView()
+        setChartData()
+    }
+
+    public func setupChartView() {
+        addSubview(barChartView)
+        barChartView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            barChartView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            barChartView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            barChartView.topAnchor.constraint(equalTo: topAnchor),
+            barChartView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+
+        barChartView.chartDescription.enabled = true
+        barChartView.rightAxis.enabled = false
+    }
+
+    public func setChartData() {
+        var dateToCount: [String: Int] = [:]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        // Parcourir tous les paquets
+        for paquet in AppDelegate.lesPaquets {
+            for carte in paquet.getCartes() {
+                let dateAjout = carte.getDateProchaineRevision()
+                
+                if let _ = dateFormatter.date(from: dateAjout) {
+                    dateToCount[dateAjout, default: 0] += 1
+                }
+            }
+        }
+
+        // Trier les dates par ordre chronologique
+        let sortedDates = dateToCount.keys.sorted()
+
+        var chartEntries: [BarChartDataEntry] = []
+
+        for (index, date) in sortedDates.enumerated() {
+            if let count = dateToCount[date] {
+                chartEntries.append(BarChartDataEntry(x: Double(index), y: Double(count)))
+            }
+        }
+
+        let dataSet = BarChartDataSet(entries: chartEntries, label: "Cartes ajoutées par jour")
+        dataSet.colors = [NSUIColor.systemGreen]
+
+        let data = BarChartData(dataSet: dataSet)
+        barChartView.data = data
+
+        // Formater l'axe X pour afficher les dates
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: sortedDates)
+        barChartView.xAxis.granularity = 1
+        barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.labelRotationAngle = -45
+
+        barChartView.leftAxis.axisMinimum = 0
+    }
+    
+    func recupererLaDateDaujourdhui() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let todayDate = dateFormatter.string(from: Date())
+        return todayDate
+    }
+    
+    func ajouterJoursADate(date: String, nbJours: Int) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let dateObjet = dateFormatter.date(from: date) else {
+            print("Format de date invalide")
+            return nil
+        }
+        
+        let dateAjoutee = Calendar.current.date(byAdding: .day, value: nbJours, to: dateObjet)!
+        
+        return dateFormatter.string(from: dateAjoutee)
+    }
+}
+
+
+
+
+// UIViewRepresentable pour intégrer à SwiftUI
+struct StatNbCAjoutParJUIREPRESENTABLE: UIViewRepresentable {
+    func makeUIView(context: Context) -> BarChartUIView {
+        return BarChartUIView()
+    }
+
+    func updateUIView(_ uiView: BarChartUIView, context: Context) {
+        // Si tu veux mettre à jour les données dynamiquement, tu le fais ici.
+    }
+}
+
+struct StatNbCAjoutParJContentView: View {
+    var body: some View {
+        VStack {
+            Text("Graphique des nombres de carte par type ")
+                .font(.headline)
+                .padding()
+
+            BarChartViewContainer()
+                .frame(height: 300)
+                .padding(.horizontal)
+        }
+    }
+}
+
+
