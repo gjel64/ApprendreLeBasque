@@ -1,0 +1,134 @@
+//
+//  Interface.swift
+//  AppV3
+//
+//  Created by etudiant on 22/04/2025.
+// 1er graphique avec le nombre de révision par jour
+//
+import SwiftUI
+import DGCharts
+
+class BarChartUIView: UIView {
+    var tousLesCartes: [Carte] = AppDelegate.lesPaquets[0].getCartes() // Liste des cartes à afficher
+
+    private let barChartView = BarChartView()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupChartView()
+        setChartData()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupChartView()
+        setChartData()
+    }
+
+    public func setupChartView() {
+        addSubview(barChartView)
+        barChartView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            barChartView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            barChartView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            barChartView.topAnchor.constraint(equalTo: topAnchor),
+            barChartView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+
+        barChartView.chartDescription.enabled = true
+        barChartView.rightAxis.enabled = false
+    }
+
+    public func setChartData() {
+        var dateToCount: [String: Int] = [:]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        // Parcourir tous les paquets
+        for paquet in AppDelegate.lesPaquets {
+            for carte in paquet.getCartes() {
+                let datesDeRevision = carte.getRevisionsCartes()
+
+                for date in datesDeRevision {
+                    if let _ = dateFormatter.date(from: date) {
+                        dateToCount[date, default: 0] += 1
+                    }
+                }
+            }
+        }
+
+        // Convertir les données en BarChartDataEntry
+        let sortedDates = dateToCount.keys.sorted()
+        var chartEntries: [BarChartDataEntry] = []
+
+        for (index, date) in sortedDates.enumerated() {
+            if let count = dateToCount[date] {
+                chartEntries.append(BarChartDataEntry(x: Double(index), y: Double(count)))
+            }
+        }
+
+        // Créer un dataset pour les données du graphique
+        let dataSet = BarChartDataSet(entries: chartEntries, label: "Nombre de révisions")
+        dataSet.colors = [NSUIColor.systemTeal]
+
+        // Appliquer le dataset au graphique
+        let data = BarChartData(dataSet: dataSet)
+        barChartView.data = data
+
+        // Optionnel : formatter l'axe X avec les vraies dates
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: sortedDates)
+        barChartView.xAxis.granularity = 1
+        barChartView.xAxis.labelRotationAngle = -45
+    }
+    
+    func recupererLaDateDaujourdhui() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let todayDate = dateFormatter.string(from: Date())
+        return todayDate
+    }
+    
+    func ajouterJoursADate(date: String, nbJours: Int) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let dateObjet = dateFormatter.date(from: date) else {
+            print("Format de date invalide")
+            return nil
+        }
+        
+        let dateAjoutee = Calendar.current.date(byAdding: .day, value: nbJours, to: dateObjet)!
+        
+        return dateFormatter.string(from: dateAjoutee)
+    }
+}
+
+
+
+
+// UIViewRepresentable pour intégrer à SwiftUI
+struct BarChartViewContainer: UIViewRepresentable {
+    func makeUIView(context: Context) -> BarChartUIView {
+        return BarChartUIView()
+    }
+
+    func updateUIView(_ uiView: BarChartUIView, context: Context) {
+        // Si tu veux mettre à jour les données dynamiquement, tu le fais ici.
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            Text("Graphique des révisions de cartes")
+                .font(.headline)
+                .padding()
+
+            BarChartViewContainer()
+                .frame(height: 300)
+                .padding(.horizontal)
+        }
+    }
+}
+
