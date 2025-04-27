@@ -44,9 +44,9 @@ class BarChartUIViewNbCartes: UIView {
 
     public func setChartData() {
         var typeToCount: [String: Int] = [
-                "Rouge": 0,
-                "Bleu": 0,
-                "Vert": 0
+            "Bleu": 0,
+            "Rouge": 0,
+            "Vert": 0
             ]
             
             // Parcourir tous les paquets
@@ -57,9 +57,9 @@ class BarChartUIViewNbCartes: UIView {
                         // 0 = Rouge, 1 = Bleu, 2 = Vert
                         switch carte.getEtatCarte() {
                             case 0:
-                                typeToCount["Rouge", default: 0] += 1
-                            case 1:
                                 typeToCount["Bleu", default: 0] += 1
+                            case 1:
+                                typeToCount["Rouge", default: 0] += 1
                             case 2:
                                 typeToCount["Vert", default: 0] += 1
                             default:
@@ -70,7 +70,7 @@ class BarChartUIViewNbCartes: UIView {
             }
             
             // Convertir en BarChartDataEntry
-            let types = ["Rouge", "Bleu", "Vert"]
+            let types = ["Bleu", "Rouge", "Vert"]
             var chartEntries: [BarChartDataEntry] = []
             
             for (index, type) in types.enumerated() {
@@ -81,7 +81,7 @@ class BarChartUIViewNbCartes: UIView {
             
             // Créer un dataset
             let dataSet = BarChartDataSet(entries: chartEntries, label: "Cartes révisées par type")
-            dataSet.colors = [NSUIColor.red, NSUIColor.blue, NSUIColor.green] // Couleurs correspondantes
+            dataSet.colors = [NSUIColor.blue, NSUIColor.red, NSUIColor.green] // Couleurs correspondantes
 
             // Appliquer le dataset
             let data = BarChartData(dataSet: dataSet)
