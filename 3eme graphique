@@ -1,0 +1,144 @@
+//
+//  StatnbCartes.swift
+//  EuskApp
+//
+//  Created by etudiant on 27/04/2025.
+//
+// 3eme graphique Nombre de cartes révisées par % de facilité
+//
+import SwiftUI
+import DGCharts
+
+// UIView personnalisée contenant le LineChartView
+
+class StatFacilite: UIView {
+    var tousLesCartes: [Carte] = AppDelegate.lesPaquets[0].getCartes() // Liste des cartes à afficher
+
+    private let barChartView = BarChartView()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupChartView()
+        setChartData()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupChartView()
+        setChartData()
+    }
+
+    public func setupChartView() {
+        addSubview(barChartView)
+        barChartView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            barChartView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            barChartView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            barChartView.topAnchor.constraint(equalTo: topAnchor),
+            barChartView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+
+        barChartView.chartDescription.enabled = true
+        barChartView.rightAxis.enabled = false
+    }
+
+    public func setChartData() {
+        // Dictionnaire pour compter le nombre de cartes par facilité
+        var faciliteToCount: [String: Int] = [:]
+
+        // Parcourir tous les paquets
+        for paquet in AppDelegate.lesPaquets {
+            for carte in paquet.getCartes() {
+                if !carte.getRevisionsCartes().isEmpty {
+                    // On prend la facilité de la carte
+                    let facilite = carte.getPourcentageFacilite()
+                    let faciliteString = "\(facilite)%"
+                    faciliteToCount[faciliteString, default: 0] += 1
+                }
+            }
+        }
+        
+        // Trier les facilités par ordre décroissant (du plus fort au plus faible)
+        let sortedFacilites = faciliteToCount.keys.sorted { (a, b) -> Bool in
+            guard let valA = Int(a.dropLast()), let valB = Int(b.dropLast()) else { return false }
+            return valA > valB
+        }
+        
+        var chartEntries: [BarChartDataEntry] = []
+
+        for (index, facilite) in sortedFacilites.enumerated() {
+            if let count = faciliteToCount[facilite] {
+                chartEntries.append(BarChartDataEntry(x: Double(index), y: Double(count)))
+            }
+        }
+        
+        // Créer un dataset
+        let dataSet = BarChartDataSet(entries: chartEntries, label: "Cartes révisées par facilité")
+        dataSet.colors = [NSUIColor.systemOrange] // couleur orange par exemple
+
+        // Appliquer le dataset
+        let data = BarChartData(dataSet: dataSet)
+        barChartView.data = data
+        
+        // Formater l'axe X avec les facilités (ex : 300%, 290%, etc)
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: sortedFacilites)
+        barChartView.xAxis.granularity = 1
+        barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.labelRotationAngle = -45
+
+        // Optionnel : Commencer axe Y à 0
+        barChartView.leftAxis.axisMinimum = 0
+    }
+    
+    func recupererLaDateDaujourdhui() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let todayDate = dateFormatter.string(from: Date())
+        return todayDate
+    }
+    
+    func ajouterJoursADate(date: String, nbJours: Int) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let dateObjet = dateFormatter.date(from: date) else {
+            print("Format de date invalide")
+            return nil
+        }
+        
+        let dateAjoutee = Calendar.current.date(byAdding: .day, value: nbJours, to: dateObjet)!
+        
+        return dateFormatter.string(from: dateAjoutee)
+    }
+}
+
+
+
+
+// UIViewRepresentable pour intégrer à SwiftUI
+struct StatFaciliteUIREPRESENTABLE: UIViewRepresentable {
+    func makeUIView(context: Context) -> BarChartUIView {
+        return BarChartUIView()
+    }
+
+    func updateUIView(_ uiView: BarChartUIView, context: Context) {
+        // Si tu veux mettre à jour les données dynamiquement, tu le fais ici.
+    }
+}
+
+struct StatFaciliteContentView: View {
+    var body: some View {
+        VStack {
+            Text("Graphique des nombres de carte par type ")
+                .font(.headline)
+                .padding()
+
+            BarChartViewContainer()
+                .frame(height: 300)
+                .padding(.horizontal)
+        }
+    }
+}
+
+
